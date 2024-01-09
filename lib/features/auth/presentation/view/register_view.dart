@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:student_management_hive_api/features/auth/domain/entity/auth_entity.dart';
 import 'package:student_management_hive_api/features/auth/presentation/auth_viewmodel/auth_viewmodel.dart';
 import 'package:student_management_hive_api/features/batch/domain/entity/batch_entity.dart';
 import 'package:student_management_hive_api/features/batch/presentation/view_model/batch_view_model.dart';
@@ -279,21 +280,23 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // if (_key.currentState!.validate()) {
-                        //   final entity = AuthEntity(
-                        //     fname: _fnameController.text,
-                        //     lname: _lnameController.text,
-                        //     phone: _phoneController.text,
-                        //     batch: selectedBatch!,
-                        //     courses: _lstCourseSelected,
-                        //     username: _usernameController.text,s
-                        //     password: _passwordController.text,
-                        //   );
-                        //   // Register user
-                        //   ref
-                        //       .read(authViewModelProvider.notifier)
-                        //       .registerStudent(entity);
-                        // }
+                        if (_key.currentState!.validate()) {
+                          final entity = AuthEntity(
+                            fname: _fnameController.text.trim(),
+                            lname: _lnameController.text.trim(),
+                            phone: _phoneController.text.trim(),
+                            batch: selectedBatch!,
+                            courses: _lstCourseSelected,
+                            image:
+                                ref.read(authViewModelProvider).imageName ?? '',
+                            username: _usernameController.text,
+                            password: _passwordController.text,
+                          );
+                          // Register user
+                          ref
+                              .read(authViewModelProvider.notifier)
+                              .registerStudent(entity);
+                        }
                       },
                       child: const Text('Register'),
                     ),

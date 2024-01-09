@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../domain/entity/course_entity.dart';
 
 @JsonSerializable()
-class CourseAPIModel{
+class CourseAPIModel {
   @JsonKey(name: '_id')
   final String? courseId;
   final String courseName;
@@ -26,6 +26,7 @@ class CourseAPIModel{
   // From entity to model
   factory CourseAPIModel.fromEntity(CourseEntity entity) {
     return CourseAPIModel(
+      courseId: entity.courseId,
       courseName: entity.courseName,
     );
   }
